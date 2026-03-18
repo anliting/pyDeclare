@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      dockerfile_inline: |
+        FROM python:3.14-alpine
+        WORKDIR /app
+        RUN <<EOF
+          python -m venv venv
+          ./venv/bin/pip install pytest
+        EOF
+        ENTRYPOINT ["./venv/bin/python","-B","-u","-m"]
+        CMD ["app.app"]
+    volumes:
+      - ./app:/app/app
